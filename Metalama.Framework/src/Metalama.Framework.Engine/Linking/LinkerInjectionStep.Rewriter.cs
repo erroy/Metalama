@@ -401,8 +401,8 @@ internal sealed partial class LinkerInjectionStep
                     node = (T) node.WithBaseList(
                         BaseList(
                             baseList.Types.AddRange(
-                                additionalBaseList.SelectAsReadOnlyList( i => i.Syntax.WithGeneratedCodeAnnotation(
-                                    FormattingAnnotations.SystemGeneratedCodeAnnotation ) ) ) ) );
+                                additionalBaseList.SelectAsReadOnlyList( i
+                                    => i.Syntax.WithGeneratedCodeAnnotation( FormattingAnnotations.SystemGeneratedCodeAnnotation ) ) ) ) );
                 }
             }
             else if ( baseList != null )
