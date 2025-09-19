@@ -23,6 +23,9 @@ var product = new Product( MetalamaDependencies.Metalama )
         [
             // Must match global.json.
             new DotNetComponent( "10.0.100-rc.1.25451.107", DotNetComponentKind.Sdk ),
+            
+            // For PostSharp.Engineering.
+            new DotNetComponent( "9.0.9", DotNetComponentKind.DotNetRuntime ),
 
             // The runtime is required by all tests.
             // The SDK is required by the Workspace tests.
@@ -191,9 +194,16 @@ static void OnPrepareCompleted( PrepareCompletedEventArgs args )
 {
     if ( !TestLicenseKeyDownloader.Download( args.Context, args.Settings ) )
     {
-        args.IsFailed = true;
+        if ( args.Context.IsContinuousIntegrationBuild )
+        {
+            args.IsFailed = true;
 
-        return;
+            return;
+        }
+        else
+        {
+            args.Context.Console.WriteWarning( "Ignoring errors while downloading test license keys." );
+        }
     }
 
     args.Context.Console.WriteHeading( "Generating code" );
