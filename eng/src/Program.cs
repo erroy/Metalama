@@ -11,6 +11,7 @@ using PostSharp.Engineering.BuildTools.Build.Solutions;
 using PostSharp.Engineering.BuildTools.Dependencies.Definitions;
 using PostSharp.Engineering.BuildTools.Dependencies.Model;
 using PostSharp.Engineering.BuildTools.Docker;
+using PostSharp.Engineering.BuildTools.Utilities;
 using System.IO;
 using MetalamaDependencies = PostSharp.Engineering.BuildTools.Dependencies.Definitions.MetalamaDependencies.V2026_0;
 
@@ -22,7 +23,7 @@ var product = new Product( MetalamaDependencies.Metalama )
         [
             // Must match global.json.
             new DotNetComponent( "10.0.100-rc.1.25451.107", DotNetComponentKind.Sdk ),
-            
+
             // The runtime is required by all tests.
             // The SDK is required by the Workspace tests.
             new DotNetComponent( "8.0.414", DotNetComponentKind.Sdk ),
@@ -188,15 +189,12 @@ return new EngineeringApp( product ).Run( args );
 
 static void OnPrepareCompleted( PrepareCompletedEventArgs args )
 {
-    /*
-
     if ( !TestLicenseKeyDownloader.Download( args.Context, args.Settings ) )
     {
         args.IsFailed = true;
 
         return;
     }
-*/
 
     args.Context.Console.WriteHeading( "Generating code" );
 
