@@ -36,7 +36,10 @@ var product = new Product( MetalamaDependencies.Metalama )
                 "Microsoft.Net.Component.4.7.2.SDK",
                 "Microsoft.Net.Component.4.8.TargetingPack",
                 "Microsoft.Net.Component.4.8.SDK"
-            ] )
+            ] ),
+            
+            // Required to download test license keys.
+            new AzureCliComponent() 
         ]
     },
     GenerateNuGetConfig = true,

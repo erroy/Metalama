@@ -37,6 +37,13 @@ RUN Invoke-WebRequest -Uri https://github.com/PowerShell/PowerShell/releases/dow
     [Environment]::SetEnvironmentVariable('PATH', $newPath, 'Machine');
 
 
+# Install Azure CLI
+RUN Invoke-WebRequest -Uri https://aka.ms/installazurecliwindowsx64 -OutFile AzureCLI.msi; `
+    $process = Start-Process msiexec.exe -Wait -PassThru -ArgumentList '/I AzureCLI.msi /quiet'; `
+    if ($process.ExitCode -ne 0) { exit $process.ExitCode }; `
+    Remove-Item AzureCLI.msi
+
+
 # Download .NET Installer
 RUN Invoke-WebRequest -Uri https://dot.net/v1/dotnet-install.ps1 -OutFile dotnet-install.ps1; `
     $pathsToAdd = @('C:\Program Files\dotnet'); `
