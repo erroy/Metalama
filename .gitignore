@@ -61,3 +61,4 @@ coverage.json
 .generated
 */.idea/workspace.xml
 nuget.config
+global.json

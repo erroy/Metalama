@@ -4,7 +4,7 @@
 
     <PropertyGroup>
         <OutputType>Exe</OutputType>
-        <!-- When changing the target framework, update the path to Build.exe in Metalama.Framework.CompilerExtensions.csproj. -->
+        <!-- .NET 10 does not work yet. We can try after GA. -->
         <TargetFramework>net9.0</TargetFramework>
         <AssemblyName>Build</AssemblyName>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>

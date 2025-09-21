@@ -12,8 +12,11 @@ using PostSharp.Engineering.BuildTools.Dependencies.Definitions;
 using PostSharp.Engineering.BuildTools.Dependencies.Model;
 using PostSharp.Engineering.BuildTools.Docker;
 using PostSharp.Engineering.BuildTools.Utilities;
+using System;
 using System.IO;
 using MetalamaDependencies = PostSharp.Engineering.BuildTools.Dependencies.Definitions.MetalamaDependencies.V2026_0;
+
+const string dotNetSdkVersion = "10.0.100-rc.1.25451.107";
 
 var product = new Product( MetalamaDependencies.Metalama )
 {
@@ -22,8 +25,8 @@ var product = new Product( MetalamaDependencies.Metalama )
         Components =
         [
             // Must match global.json.
-            new DotNetComponent( "10.0.100-rc.1.25451.107", DotNetComponentKind.Sdk ),
-            
+            new DotNetComponent( dotNetSdkVersion, DotNetComponentKind.Sdk ),
+
             // For PostSharp.Engineering.
             new DotNetComponent( "9.0.9", DotNetComponentKind.DotNetRuntime ),
 
@@ -37,12 +40,14 @@ var product = new Product( MetalamaDependencies.Metalama )
                 "Microsoft.Net.Component.4.8.TargetingPack",
                 "Microsoft.Net.Component.4.8.SDK"
             ] ),
-            
+
             // Required to download test license keys.
-            new AzureCliComponent() 
+            new AzureCliComponent()
         ]
     },
     GenerateNuGetConfig = true,
+    DotNetSdkVersion = new DotNetSdkVersion( dotNetSdkVersion ) { AllowPrerelease = true },
+    MSBuildVersion = new Version( 17, 14 ),
     Solutions =
     [
         new DotNetSolution( "Metalama.Backstage/Metalama.Backstage.sln" ) { SupportsTestCoverage = true, CanFormatCode = true },
